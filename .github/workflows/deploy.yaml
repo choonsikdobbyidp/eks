@@ -12,6 +12,13 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
+      
+    - name: Install dos2unix
+      run: sudo apt-get update && sudo apt-get install -y dos2unix
+
+    - name: Convert files from CRLF to LF
+      run: |
+        find . -type f -exec dos2unix {} \;
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
