@@ -4,14 +4,23 @@ FROM node:18 AS build
 # Set working directory
 WORKDIR /app
 
+# Install dos2unix
+RUN apt-get update && apt-get install -y dos2unix
+
 # Copy package.json and package-lock.json
 COPY package*.json ./
+
+# Convert package.json and package-lock.json to Unix format
+RUN dos2unix package*.json
 
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application code
 COPY . .
+
+# Convert all application files to Unix format
+RUN find . -type f -exec dos2unix {} \;
 
 # Build the Vite project
 RUN npm run build
