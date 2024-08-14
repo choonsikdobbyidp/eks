@@ -12,7 +12,7 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
+
     - name: List files for debugging
       run: ls -l
 
@@ -36,8 +36,7 @@ jobs:
       id: docker_build
       uses: docker/build-push-action@v2
       with:
-        context: .
-        file: vite-project/Dockerfile
+        context: ./vite-project
         push: true
         tags: ${{ secrets.DOCKER_USERNAME }}/vite-app:latest
 
