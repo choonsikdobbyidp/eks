@@ -13,6 +13,9 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
       
+    - name: List files for debugging
+      run: ls -l
+
     - name: Install dos2unix
       run: sudo apt-get update && sudo apt-get install -y dos2unix
 

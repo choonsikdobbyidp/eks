@@ -7,11 +7,20 @@ WORKDIR /app
 # Copy package.json and package-lock.json
 COPY package*.json ./
 
+# Check if package.json and package-lock.json exist
+RUN ls -l package*.json
+
+# Convert package.json and package-lock.json to Unix format
+RUN dos2unix package*.json
+
 # Install dependencies
 RUN npm install
 
 # Copy the rest of the application code
 COPY . .
+
+# Convert all application files to Unix format
+RUN find . -type f -exec dos2unix {} \;
 
 # Build the Vite project
 RUN npm run build
